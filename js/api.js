@@ -1,3 +1,5 @@
+import { apiKey,appId } from "./apiKey.js";
+
 const BASE_URL = "https://api.euskadi.eus/culture/events/v1.0/";
 
 

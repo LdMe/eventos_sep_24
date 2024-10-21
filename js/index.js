@@ -1,19 +1,10 @@
 import { getEventTypes, getEventsByProvince, getEventsByType, getProvinces, getEvents } from "./api.js";
-import Event from "./event.js";
+import Event from "./classes/event.js";
+import SearchBar from "./classes/searchBar.js";
 
-let eventTypeId = '0';
-let provinceId = '0';
 
-const searchSection = document.getElementById("search");
 
-function createSearchButton() {
-    const button = document.createElement("button");
-    button.innerText = "buscar";
-    button.addEventListener("click", async () => {
-        createEventCards();
-    })
-    searchSection.appendChild(button)
-}
+/* 
 async function createEventTypeSelector() {
     const selector = document.createElement("select");
     searchSection.appendChild(selector);
@@ -30,14 +21,12 @@ async function createEventTypeSelector() {
     }
     selector.addEventListener("change", async (e) => {
         eventTypeId = e.target.value;
-        /* const events = await getEvents({type:eventTypeId,provinceNoraCode:provinceId});
-        console.log(events); */
 
     })
     return selector;
-}
+} */
 
-async function createProvinceSelector() {
+/* async function createProvinceSelector() {
     const selector = document.createElement("select");
     searchSection.appendChild(selector);
     const allOption = document.createElement("option");
@@ -55,7 +44,9 @@ async function createProvinceSelector() {
         provinceId = e.target.value;
     })
     return selector;
-}
+} */
+
+
 
 async function createEventCards() {
     const eventSection = document.getElementById("events")
@@ -73,7 +64,8 @@ async function createEventCards() {
 /* async function createSearchForm(){
 
 } */
-createEventTypeSelector()
+/* createEventTypeSelector()
 createProvinceSelector();
-createSearchButton();
+createSearchButton(); */
 //createEventCards();
+const searchBar = new SearchBar();
