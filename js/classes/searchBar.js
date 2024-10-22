@@ -22,6 +22,7 @@ class SearchBar{
         const selector = document.createElement("select");
         this.searchSection.appendChild(selector);
         const allOption = document.createElement("option");
+        selector.
         allOption.innerText = "Todos";
         allOption.value = '0';
         selector.appendChild(allOption);

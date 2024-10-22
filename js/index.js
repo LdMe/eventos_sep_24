@@ -69,3 +69,4 @@ createProvinceSelector();
 createSearchButton(); */
 //createEventCards();
 const searchBar = new SearchBar();
+
