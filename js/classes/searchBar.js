@@ -1,28 +1,64 @@
-import { getEventTypes,getProvinces } from "../api.js";
-class SearchBar{
-    constructor(sectionId = "search"){
-        
+import { getEventTypes, getProvinces, getEvents } from "../api.js";
+import { createEventCards } from "./eventCard.js";
+
+class SearchBar {
+    constructor(sectionId = "search") {
+
         this.searchSection = document.getElementById(sectionId);
-        this.eventTypeId = 0;
-        this.provinceId = 0;
+        this.pageButtonSection = document.getElementById("pageButton")
+        this.eventTypeId = '0';
+        this.provinceId = '0';
         this.createSearchButton();
+        this.createPageButton();
         this.createEventTypeSelector();
         this.createProvinceSelector();
-        
+        this.page = 1;
+        /* document.addEventListener("scroll", () => {
+            console.log("scroll");
+            // Obtén la referencia correcta a los elementos
+            const scrollPosition = window.innerHeight + this.searchSection.scrollTop;
+            const scrollThreshold = searchSection.scrollHeight;
+            console.log("scrollPosition",scrollPosition,scrollThreshold)
+            // Verifica si se ha llegado al final
+            if (Math.ceil(scrollPosition) >= scrollThreshold) {
+                console.log("cargando");
+                this.page++;
+                createEventCards(this.eventTypeId, this.provinceId, this.page);
+            }
+        }); */
+
+
     }
     createSearchButton() {
         const button = document.createElement("button");
         button.innerText = "buscar";
-        button.addEventListener("click", async () => {
-            createEventCards();
+        button.addEventListener("click", () => {
+            createEventCards(this.eventTypeId, this.provinceId, this.page);
         })
         this.searchSection.appendChild(button)
+    }
+    createPageButton() {
+        const nextButton = document.createElement("button");
+        //const prevButton = document.createElement("button");
+
+        nextButton.innerText = "siguiente";
+        nextButton.addEventListener("click", () => {
+            this.page++;
+            createEventCards(this.eventTypeId, this.provinceId, this.page);
+        })
+        /* prevButton.innerText = "anterior";
+        prevButton.addEventListener("click", () => {
+            this.page--;
+            createEventCards(this.eventTypeId,this.provinceId,this.page);
+        })
+        this.pageButtonSection.appendChild(prevButton) */
+        this.pageButtonSection.appendChild(nextButton)
     }
     createSelector(title) {
         const selector = document.createElement("select");
         this.searchSection.appendChild(selector);
         const allOption = document.createElement("option");
-        selector.
+        //selector.
         allOption.innerText = "Todos";
         allOption.value = '0';
         selector.appendChild(allOption);
@@ -44,6 +80,7 @@ class SearchBar{
         this.addSelectorOptions(selector, data);
         selector.addEventListener("change", async (e) => {
             this.eventTypeId = e.target.value;
+            this.page = 1;
         })
         return selector;
     }
@@ -54,9 +91,11 @@ class SearchBar{
         this.addSelectorOptions(selector, data);
         selector.addEventListener("change", async (e) => {
             this.provinceId = e.target.value;
+            this.page = 1;
         })
         return selector;
     }
+
 }
 
 export default SearchBar;

@@ -1,4 +1,4 @@
-import { apiKey,appId } from "./apiKey.js";
+
 
 const BASE_URL = "https://api.euskadi.eus/culture/events/v1.0/";
 
@@ -50,7 +50,7 @@ async function getEventsByProvince(provinceId){
 function removeEmptyFilter(filter){
     const newFilter = {};
     for(const [key,value] of Object.entries(filter)){
-       if(value !== '0'){
+       if(value != '0'){
         newFilter[key] = value;
        }
     }
@@ -59,6 +59,7 @@ function removeEmptyFilter(filter){
 
 async function getEvents(filter){
     const newFilter = removeEmptyFilter(filter)
+    console.log(newFilter)
     const events = await fetchData("events",newFilter);
     return events;
 }
